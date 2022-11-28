@@ -95,19 +95,40 @@ int main()
 			send(clientSocket, t, strlen(t), 0);
 			break;
 		case 2:
-			strcpy(buffer, "grafica");
+			printf("\n1) Graficar semana");
+			printf("\n2) Graficar Mes");
+			printf("\n3) Volver...");
+			printf("\nSelecciona una opcion: ");
+			scanf("%d", &op);
+			switch (op)
+			{
+			case 1:
+				strcpy(buffer, "grafica1");
+				break;
+			case 2:
+				strcpy(buffer, "grafica2");
+				break;
+			default:
+				break;
+			}
 			send(clientSocket, buffer, strlen(buffer), 0);
 			int j = 0;
 			while (1)
 			{
 				recv(clientSocket, file_vector, 14, 0);
-				//printf("Vec [%ld]: %s\n", strlen(file_vector), file_vector);
+				// printf("Vec [%ld]: %s\n", strlen(file_vector), file_vector);
 
 				token = strtok(file_vector, "|");
 				//printf("token 1: %s\n", token);
+				//struct tm ts;
+				//time_t now = strtol(token,NULL,10);
+				//char buf[80];
+				//ts = *localtime(&now);
+				//strftime(buf, sizeof(buf), "%a %Y-%m-%d %H:%M:%S", &ts);
+        		//printf("Day %s\n", buf);
 
 				token = strtok(NULL, "|");
-				//printf("token 2: %s\n", token);
+				// printf("token 2: %s\n", token);*/
 
 				if (strcmp(file_vector, ":exit") == 0)
 				{
@@ -123,10 +144,10 @@ int main()
 			{
 				printf("%d\n", vec[i]);
 			}
-			strcpy(nameCityFile,nameCity);
-			strcat(nameCityFile,".pgm");
-			
-			generaGrafica(nameCityFile,vec,j);
+			strcpy(nameCityFile, nameCity);
+			strcat(nameCityFile, ".pgm");
+
+			generaGrafica(nameCityFile, vec, j);
 			printf("Grafica creada satisfactoriamente \nBuscala como: %s", nameCityFile);
 			break;
 		case 3:
